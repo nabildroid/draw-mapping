@@ -1,0 +1,24 @@
+{
+  "name": "draw-mapping",
+  "version": "1.0.0",
+  "description": "simple multi-layers neural network that create fully colored screen from user draw, it takes the dots and their colors and learn from them then create new fully colored screen",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nabildroid/draw-mapping.git"
+  },
+  "keywords": [
+    "neural-netwrok",
+    "javascript",
+    "AI"
+  ],
+  "author": "nabil lakrib",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nabildroid/draw-mapping/issues"
+  },
+  "homepage": "https://github.com/nabildroid/draw-mapping#readme"
+}

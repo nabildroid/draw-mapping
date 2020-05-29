@@ -1,0 +1,11 @@
+@media screen and (max-width: 600px) {
+
+}
+/* tablet */
+@media screen and (min-width: 600px) and  (max-width: 1010px) { 
+
+}
+/* desctop */
+@media screen and (min-width: 1000px) { 
+
+}
