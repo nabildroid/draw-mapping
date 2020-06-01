@@ -13,7 +13,7 @@ let showCurrentData;
 let mouseDot;
 let button;
 let supportText;
-const Data=[];
+let Data=[];
 let currentData=0;
 
 
@@ -39,6 +39,21 @@ function start(){
 	mouseDot = new Spot(-100,-100,70,"#fff");
 	mouseDot.elm.border(4,"#fff");
 	mouseDot.elm.elm.style.zIndex = 99999
+
+
+	prevDots =JSON.parse(localStorage.getItem("dots") || "[]");
+	Data = prevDots.map(e=>{
+		const elm=new DIV;
+		const rgb = colors[e.label].join(",");
+		elm.free().top(e.y-25).left(e.x-25).size(50).circle().bg_color(`rgb(${rgb})`);
+		currentData=0;
+		return {
+			x:e.x,
+			y:e.y,
+			label:e.label,
+			elm
+		}
+	})
 
 
 	brian=new NeuralNetwork([2,50,50,colors.length],0.05);
@@ -80,6 +95,9 @@ Track_key_press(async (key)=>{
 	if( typeof(currentData) == "number" ){
 		if(key == -83){
 			if(Data.length){
+				const dots = JSON.stringify(Data.map(({x,y,label})=>({x,y,label})));
+				localStorage.setItem("dots",dots);
+
 				currentData = "training";
 				Data.forEach(d=>d.elm.remove());
 				training=train();
@@ -105,6 +123,20 @@ Track_key_press(async (key)=>{
 
 
 function show(size){
+	setInterval(()=>{
+		const x = random(bg.width())
+		const y = random(bg.height())
+		const guess=brian.guess(normalize(x,y));
+
+		const rgbs = guess.map((dense,i)=>{
+			return colors[i].map(c=>c*dense)
+		});
+
+		const color = rybColorMixer.mix(rgbs);
+		dot(x,y,20,`#${color}`);
+	},10);
+
+	return;
 	const w=Math.floor(bg.width()/size);
 	const h=Math.floor(bg.height()/size);
 	for(i=0;i<=w;i++){
@@ -148,8 +180,10 @@ Track_mouse((x,y)=>{
  		const color = rybColorMixer.mix(rgbs);
  		mouseDot.update([x,y]);
  		mouseDot.elm.bg_color(`#${color}`);
+ 		dot(x,y,20,`#${color}`);
  	}
 });
+
 
 
 

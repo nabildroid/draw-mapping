@@ -80,7 +80,7 @@ class Matrix{
 	randomize(data){
 		for (let i = 0; i < this.val.length; i++)
 			for (let j = 0; j < this.val[i].length; j++)
-				this.val[i][j]=data?data.shift():Math.random() * 2 -1;
+				this.val[i][j]=data?data.shift():(Math.random() * 2 -1);
 	}
 	map(apply){
 		for (let i = 0; i < this.val.length; i++)
